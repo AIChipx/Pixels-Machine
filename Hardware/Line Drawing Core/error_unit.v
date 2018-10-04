@@ -26,7 +26,7 @@ wire less_than_zero, e_sel_mux_in, e_sel_mux_out, y_sel_mux_in, reset_all, WE_er
 
 
 
-error_controller error_controller_inst
+error_controllerV2 error_controller_inst
 (
 	.clk(clk) ,	// input  clk
 	.reset(rst) ,	// input  reset

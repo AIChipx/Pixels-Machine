@@ -1,7 +1,7 @@
 // Abs unit
 // Algorithm :: b = Abs(a)
 // unit type :: combinational
-// Note      :: all arithmetic operations will use signed (2'complement) 12-bit width
+// Note      :: all arithmetic operations will use signed (2'complement) 13-bit width
 
 module Abs 
 #(parameter WIDTH=13)

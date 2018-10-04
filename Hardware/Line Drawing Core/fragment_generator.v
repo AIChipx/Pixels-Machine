@@ -4,15 +4,15 @@ module fragment_generator
 #(parameter WIDTH=13)
 (
 // input signals
-clk, rst, start, en_FB_reg, steep, red_in, green_in, blue_in, deltax, y0, deltay, ystep, x0, x_min, x_max,
+clk, rst, start, en_FB_reg, steep, deltax, y0, deltay, ystep, x0, x_min, x_max,
 // output signals
-FB_addr, red_out, green_out ,blue_out, finish
+FB_addr, color_out, finish
 );
 
-input clk, rst, start, en_FB_reg, steep, red_in, green_in, blue_in;
+input clk, rst, start, en_FB_reg, steep;
 input [WIDTH-1:0] deltax, y0, deltay, ystep, x0, x_min, x_max;
-output [16:0] FB_addr;
-output  red_out, green_out ,blue_out, finish;
+output [18:0] FB_addr;
+output  color_out, finish;
 
 // internal wiring...
 wire en_counter, last_count;
@@ -55,13 +55,8 @@ FB_addr_col_gen FB_addr_col_gen_inst
 	.steep(steep) ,	// input  steep
 	.x_coord(xcount) ,	// input [WIDTH-1:0] x_coord
 	.y_coord(y_coord) ,	// input [WIDTH-1:0] y_coord
-	.red_in(red_in) ,	// input  red_in
-	.green_in(green_in) ,	// input  green_in
-	.blue_in(blue_in) ,	// input  blue_in
-	.FB_addr(FB_addr) ,	// output [16:0] FB_addr
-	.red_out(red_out) ,	// output  red_out
-	.green_out(green_out) ,	// output  green_out
-	.blue_out(blue_out) 	// output  blue_out
+	.FB_addr(FB_addr) ,	// output [18:0] FB_addr
+	.color_out(color_out)
 );
 
 endmodule 

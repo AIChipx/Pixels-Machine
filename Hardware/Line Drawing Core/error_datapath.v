@@ -54,4 +54,3 @@ signed_add   d10 (y_stored, ystep, y_res_plus);
 assign y_coord_out = (x0 == xcount)? y0 : y_stored;
 
 endmodule 
-

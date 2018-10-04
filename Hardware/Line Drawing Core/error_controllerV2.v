@@ -4,7 +4,7 @@
 //           :: so I will compare if(xcount == x0) ,, y_coord = y0 ,, Otherwise evaluate the if statement
 // NOTE      :: THIS BLOCK NEEDS RESET SIGNAL BEFORE OPERATION (AFTER GLOBAL RESET)
 
-module error_controller(
+module error_controllerV2(
 // input signals
    clk,
 	reset,
@@ -21,12 +21,12 @@ output reg e_sel_mux_in, e_sel_mux_out, y_sel_mux_in, en_counter, reset_all, WE_
 
 // define my states
 	reg [2:0] state, nstate;
-	parameter init				= 3'd0,
-				 intern_reset  = 3'd1,
-				 pre_store     = 3'd2,
-				 check         = 3'd3,
-				 skip          = 3'd4, 
-				 update        = 3'd5;
+	parameter    init		     = 3'd0,
+				 internal_reset  = 3'd1,
+				 s1     = 3'd2,
+				 s2     = 3'd3,
+				 s3     = 3'd4, 
+				 s4     = 3'd5;
 
 // sequential logic
 	always @(posedge clk or posedge reset)			 
@@ -52,56 +52,60 @@ output reg e_sel_mux_in, e_sel_mux_out, y_sel_mux_in, en_counter, reset_all, WE_
 		WE_y_reg      = 1'b0;
 		
 		case(state)
-			init: begin
-						if(start) nstate = intern_reset;
-					end
+			init:
+			 begin
+				if(start) nstate = internal_reset;
+			 end
 					
-			intern_reset: begin
-									reset_all = 1'b1;
-									en_counter = 1'b1;
-									
-									nstate = pre_store;
-							  end
+			internal_reset:
+			 begin
+				reset_all = 1'b1;
+				en_counter = 1'b1;
+				
+				nstate = s1;
+			 end
 							  
-			 pre_store: begin
-								WE_error_reg  = 1'b1;
-								WE_y_reg      = 1'b1;
-								
-								nstate = check;
-							end
+			s1: // Store y0 into y_reg & Store error_init into error_reg
+			begin
+				WE_error_reg  = 1'b1;
+				WE_y_reg      = 1'b1;
+
+				nstate = s2;
+			end
 							
-			 check: begin
-							e_sel_mux_in  = 1'b1;
-							y_sel_mux_in  = 1'b1;
-							
-							if(last_count) nstate = init;
-							else if(less_than_zero) nstate = update;
-							else nstate = skip;
-					  end
+			s2: // Check if (error < 0)
+			begin
+				if(last_count) nstate = init;
+				else if(less_than_zero) nstate = s3;
+				else 
+				begin
+					en_counter = 1'b1;
+					nstate = s4;
+				end	
+					
+			end
 			 
-			 skip: begin
-						e_sel_mux_in  = 1'b1;
-						y_sel_mux_in  = 1'b1;
-						en_counter    = 1'b1;
-						WE_error_reg  = 1'b1;
-						
-						nstate = check;
-			       end
+			s3: // if (error < 0) check is true
+				// update error_reg & y_reg 
+			begin
+				y_sel_mux_in  = 1'b1;
+				e_sel_mux_out = 1'b1;
+				e_sel_mux_in  = 1'b1;	
+				WE_error_reg  = 1'b1;
+				WE_y_reg      = 1'b1;
+				en_counter = 1'b1;
+
+				nstate = s4;	
+			end
 			 
-			 update: begin 
-							e_sel_mux_in  = 1'b1;
-							e_sel_mux_out = 1'b1;
-							y_sel_mux_in  = 1'b1;
-							en_counter    = 1'b1;
-							WE_error_reg  = 1'b1;
-							WE_y_reg      = 1'b1;
-							
-							nstate = check;
-			         end
-			 
-		
+			s4: // update error_reg with {error = error - deltay;} and enable the counter
+			begin 
+				e_sel_mux_in  = 1'b1;
+				WE_error_reg  = 1'b1;
+				nstate = s2;		
+			end
+
 		endcase
-		
 	end
 
 endmodule 

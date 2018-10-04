@@ -1,10 +1,10 @@
 `timescale 1ns/1ns
 
 module line_drawing_tb;
-reg clk, reset, start, red_in, green_in, blue_in;
+reg clk, reset, start;
 reg [12:0] x0, x1, y0, y1;
-wire [16:0] FB_addr;
-wire red_out, green_out, blue_out, sys_finish, FB_WE;
+wire [18:0] FB_addr;
+wire color_out, sys_finish, FB_WE;
 
 
 // clock generation
@@ -22,15 +22,11 @@ begin
 clk = 0;
 reset = 0;  
 start = 0;
-// color => green.
-red_in = 0; 
-green_in = 1; 
-blue_in = 0;
 // rendering coordinates
 x0 = 13'd0;
 y0 = 13'd0;
-x1 = 13'd200;
-y1 = 13'd200;
+x1 = 13'd400;
+y1 = 13'd400;
 // initial reset
 #50 reset = 1;
 #50 reset = 0;
@@ -42,14 +38,10 @@ wait(sys_finish == 1)
 
 // new rendering coordinates
 #500;
-x0 = 13'd210;
-y0 = 13'd220;
-x1 = 13'd300;
+x0 = 13'd610;
+y0 = 13'd410;
+x1 = 13'd400;
 y1 = 13'd10;
-// color => red.
-red_in = 1; 
-green_in = 0; 
-blue_in = 0;
 // initial reset
 #50 reset = 1;
 #50 reset = 0;
@@ -61,14 +53,25 @@ wait(sys_finish == 1)
 
 // new rendering coordinates
 #500;
-x0 = 13'd200;
+x0 = 13'd610;
 y0 = 13'd10;
 x1 = 13'd300;
-y1 = 13'd220;
-// color => blue.
-red_in = 0; 
-green_in = 0; 
-blue_in = 1;
+y1 = 13'd410;
+// initial reset
+#50 reset = 1;
+#50 reset = 0;
+// start signal
+#50 start = 1;
+#50 start = 0;
+// wait finish
+wait(sys_finish == 1)
+
+// new rendering coordinates
+#500;
+x0 = 13'd10;
+y0 = 13'd210;
+x1 = 13'd610;
+y1 = 13'd210;
 // initial reset
 #50 reset = 1;
 #50 reset = 0;
@@ -106,9 +109,9 @@ always @ (posedge clk)
 begin
 	if(FB_WE == 1)
 	begin
-	$fdisplay(monitor_file_id0, "%d" ,red_out*255);
-	$fdisplay(monitor_file_id1, "%d" ,green_out*255);
-	$fdisplay(monitor_file_id2, "%d" ,blue_out*255);
+	$fdisplay(monitor_file_id0, "%d" ,color_out*255);
+	$fdisplay(monitor_file_id1, "%d" ,color_out*255);
+	$fdisplay(monitor_file_id2, "%d" ,color_out*255);
 	$fdisplay(monitor_file_id3, "%d" ,FB_addr);
 	end
 end
@@ -119,18 +122,13 @@ line_drawing DUT
 	.clk(clk) ,	// input  clk
 	.reset(reset) ,	// input  reset
 	.start(start) ,	// input  start
-	.red_in(red_in) ,	// input  red_in
-	.green_in(green_in) ,	// input  green_in
-	.blue_in(blue_in) ,	// input  blue_in
 	.x0(x0) ,	// input [WIDTH-1:0] x0
 	.x1(x1) ,	// input [WIDTH-1:0] x1
 	.y0(y0) ,	// input [WIDTH-1:0] y0
 	.y1(y1) ,	// input [WIDTH-1:0] y1
 	.FB_WE(FB_WE) ,	// output  FB_WE
-	.FB_addr(FB_addr) ,	// output [16:0] FB_addr
-	.red_out(red_out) ,	// output  red_out
-	.green_out(green_out) ,	// output  green_out
-	.blue_out(blue_out) ,	// output  blue_out
+	.FB_addr(FB_addr) ,	// output [18:0] FB_addr
+	.color_out(color_out) ,
 	.sys_finish(sys_finish) 	// output  frag_gen_finish
 );
 
