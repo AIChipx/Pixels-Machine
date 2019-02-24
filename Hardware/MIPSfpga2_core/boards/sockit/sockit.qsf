@@ -1,0 +1,151 @@
+#============================================================
+# Build by Terasic System Builder
+#============================================================
+
+set_global_assignment -name FAMILY "Cyclone V"
+set_global_assignment -name DEVICE 5CSXFC6D6F31C8ES
+set_global_assignment -name TOP_LEVEL_ENTITY "line_drawing_core"
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION "12.0"
+set_global_assignment -name LAST_QUARTUS_VERSION "12.0"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "22:08:29 OCTOBER 05,2018"
+set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 896
+set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 8_H6
+set_global_assignment -name SDC_FILE line_drawing_core.SDC
+
+#============================================================
+# CLOCK
+#============================================================
+set_location_assignment PIN_AF14 -to OSC_50_B3B
+set_instance_assignment -name IO_STANDARD "1.5 V" -to OSC_50_B3B
+set_location_assignment PIN_AA16 -to OSC_50_B4A
+set_instance_assignment -name IO_STANDARD "1.5 V" -to OSC_50_B4A
+set_location_assignment PIN_Y26 -to OSC_50_B5B
+set_instance_assignment -name IO_STANDARD "2.5 V" -to OSC_50_B5B
+set_location_assignment PIN_K14 -to OSC_50_B8A
+set_instance_assignment -name IO_STANDARD "2.5 V" -to OSC_50_B8A
+
+#============================================================
+# LED
+#============================================================
+set_location_assignment PIN_AF10 -to LED[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[0]
+set_location_assignment PIN_AD10 -to LED[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[1]
+set_location_assignment PIN_AE11 -to LED[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[2]
+set_location_assignment PIN_AD7 -to LED[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[3]
+
+#============================================================
+# KEY
+#============================================================
+set_location_assignment PIN_AE9 -to KEY[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[0]
+set_location_assignment PIN_AE12 -to KEY[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[1]
+set_location_assignment PIN_AD9 -to KEY[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[2]
+set_location_assignment PIN_AD11 -to KEY[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[3]
+set_location_assignment PIN_AD27 -to RESET_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to RESET_n
+
+#============================================================
+# SW
+#============================================================
+set_location_assignment PIN_W25 -to SW[0]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to SW[0]
+set_location_assignment PIN_V25 -to SW[1]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to SW[1]
+set_location_assignment PIN_AC28 -to SW[2]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to SW[2]
+set_location_assignment PIN_AC29 -to SW[3]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to SW[3]
+
+#============================================================
+# Si5338
+#============================================================
+set_location_assignment PIN_AE26 -to SI5338_SCL
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SI5338_SCL
+set_location_assignment PIN_AJ29 -to SI5338_SDA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SI5338_SDA
+
+#============================================================
+# Temperature
+#============================================================
+set_location_assignment PIN_AF8 -to TEMP_CS_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TEMP_CS_n
+set_location_assignment PIN_AG7 -to TEMP_DIN
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TEMP_DIN
+set_location_assignment PIN_AG1 -to TEMP_DOUT
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TEMP_DOUT
+set_location_assignment PIN_AF9 -to TEMP_SCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TEMP_SCLK
+
+#============================================================
+# VGA
+#============================================================
+set_location_assignment PIN_AD12 -to VGA_HS
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_HS
+set_location_assignment PIN_AC12 -to VGA_VS
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_VS
+set_location_assignment PIN_AG2 -to VGA_SYNC_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_SYNC_n
+set_location_assignment PIN_W20 -to VGA_CLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_CLK
+set_location_assignment PIN_AH3 -to VGA_BLANK_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_BLANK_n
+set_location_assignment PIN_AG5 -to VGA_R[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[0]
+set_location_assignment PIN_AA12 -to VGA_R[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[1]
+set_location_assignment PIN_AB12 -to VGA_R[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[2]
+set_location_assignment PIN_AF6 -to VGA_R[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[3]
+set_location_assignment PIN_AG6 -to VGA_R[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[4]
+set_location_assignment PIN_AJ2 -to VGA_R[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[5]
+set_location_assignment PIN_AH5 -to VGA_R[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[6]
+set_location_assignment PIN_AJ1 -to VGA_R[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[7]
+set_location_assignment PIN_Y21 -to VGA_G[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_G[0]
+set_location_assignment PIN_AA25 -to VGA_G[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_G[1]
+set_location_assignment PIN_AB26 -to VGA_G[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_G[2]
+set_location_assignment PIN_AB22 -to VGA_G[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_G[3]
+set_location_assignment PIN_AB23 -to VGA_G[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_G[4]
+set_location_assignment PIN_AA24 -to VGA_G[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_G[5]
+set_location_assignment PIN_AB25 -to VGA_G[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_G[6]
+set_location_assignment PIN_AE27 -to VGA_G[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_G[7]
+set_location_assignment PIN_AE28 -to VGA_B[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_B[0]
+set_location_assignment PIN_Y23 -to VGA_B[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_B[1]
+set_location_assignment PIN_Y24 -to VGA_B[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_B[2]
+set_location_assignment PIN_AG28 -to VGA_B[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_B[3]
+set_location_assignment PIN_AF28 -to VGA_B[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_B[4]
+set_location_assignment PIN_V23 -to VGA_B[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_B[5]
+set_location_assignment PIN_W24 -to VGA_B[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_B[6]
+set_location_assignment PIN_AF29 -to VGA_B[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_B[7]
+
+#============================================================
+# End of pin assignments by Terasic System Builder
+#============================================================
+

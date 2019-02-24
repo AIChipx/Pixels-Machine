@@ -1,0 +1,1106 @@
+
+program.elf:     file format elf32-tradlittlemips
+
+SYMBOL TABLE:
+9fc00000 l    d  .bootrom	00000000 .bootrom
+80000000 l    d  .exception_vector	00000000 .exception_vector
+80000200 l    d  .text	00000000 .text
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    d  .debug_loc	00000000 .debug_loc
+00000000 l    d  .mdebug.abi32	00000000 .mdebug.abi32
+00000000 l    d  .pdr	00000000 .pdr
+00000000 l    d  .gnu.attributes	00000000 .gnu.attributes
+00000000 l    d  .comment	00000000 .comment
+00000000 l    df *ABS*	00000000 boot.o
+9fc00004 l       .bootrom	00000000 init_cp0
+9fc00018 l       .bootrom	00000000 init_tlb
+9fc00060 l       .bootrom	00000000 init_icache
+9fc00044 l       .bootrom	00000000 next_tlb_entry
+9fc000ac l       .bootrom	00000000 done_icache
+9fc0009c l       .bootrom	00000000 next_icache_tag
+9fc000ac l       .bootrom	00000000 enable_k0_cache
+9fc000cc l       .bootrom	00000000 init_dcache
+9fc0011c l       .bootrom	00000000 done_dcache
+9fc0010c l       .bootrom	00000000 next_dcache_tag
+9fc0013c l       .bootrom	00000000 all_done
+00000000 l    df *ABS*	00000000 exceptions.o
+80000000 l       .exception_vector	00000000 __tlb_refill_loop
+80000080 l       .exception_vector	00000000 __xtlb_refill_loop
+80000100 l       .exception_vector	00000000 __cache_error_loop
+80000180 l       .exception_vector	00000000 __general_exception_loop
+00000000 l    df *ABS*	00000000 main.c
+80000200  w    F .text	00000000 __exception_handle_verbose
+8000024c g     F .text	00000088 draw_line
+80000328 g       .text	00000000 _etext
+80008340 g       *ABS*	00000000 _gp
+00000020 g       *ABS*	00000000 __isr_vec_space
+00000000 g       *ABS*	00000000 __DYNAMIC
+80000204 g     F .text	0000003c long_delay
+00000001 g       *ABS*	00000000 __use_excpt_boot
+00000000  w      *UND*	00000000 _mips_xtlb_refill
+80000200  w    F .text	00000000 __register_excpt_boot
+80000200  w    F .text	00000000 __register_excpt_handler
+80000000 g       *ABS*	00000000 __app_start
+80000000 g       *ABS*	00000000 __flash_app_start
+80000200 g       .text	00000000 _ftext
+9fc00144 g     F .bootrom	0000006c _start
+80000000 g       *ABS*	00000000 __excpt_ebase
+800002d4 g     F .text	00000054 main
+80000200 g     F .text	00000000 __exception_handle
+bfc00000 g       *ABS*	00000000 __entry
+80000200  w    F .text	00000004 __getargs
+00000000  w      *UND*	00000000 _mips_general_exception
+80000240 g     F .text	0000000c delay_slot
+00000000  w      *UND*	00000000 _mips_tlb_refill
+00000000  w      *UND*	00000000 _mips_cache_error
+80040000 g       *ABS*	00000000 __stack
+80000000 g     F .exception_vector	00000198 __exception_entry
+80000000 g       .exception_vector	00000000 __base
+bfc00000 g       *ABS*	00000000 __flash_start
+9fc00000 g     F .bootrom	00000144 __reset_vector
+0001f800 g       *ABS*	00000000 __memory_size
+80008340 g       *ABS*	00000000 __global
+80000200  w    F .text	00000000 __isr_vec
+00000000 g       *ABS*	00000000 __isr_vec_count
+
+
+
+Disassembly of section .bootrom:
+
+9fc00000 <__reset_vector>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:20
+9fc00000:	40804800 	mtc0	zero,c0_count
+
+9fc00004 <init_cp0>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:27
+9fc00004:	3c030040 	lui	v1,0x40
+9fc00008:	34630004 	ori	v1,v1,0x4
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:28
+9fc0000c:	40836000 	mtc0	v1,c0_status
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:31
+9fc00010:	40806800 	mtc0	zero,c0_cause
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:34
+9fc00014:	40805800 	mtc0	zero,c0_compare
+
+9fc00018 <init_tlb>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:44
+9fc00018:	40038000 	mfc0	v1,c0_config
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:45
+9fc0001c:	7c6311c0 	ext	v1,v1,0x7,0x3
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:46
+9fc00020:	24070001 	li	a3,1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:47
+9fc00024:	1467000e 	bne	v1,a3,9fc00060 <init_icache>
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:50
+9fc00028:	40028001 	mfc0	v0,c0_config1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:51
+9fc0002c:	7c432e40 	ext	v1,v0,0x19,0x6
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:52
+9fc00030:	40801000 	mtc0	zero,c0_entrylo0
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:53
+9fc00034:	40801800 	mtc0	zero,c0_entrylo1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:54
+9fc00038:	40802800 	mtc0	zero,c0_pagemask
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:55
+9fc0003c:	40803000 	mtc0	zero,c0_wired
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:56
+9fc00040:	3c048000 	lui	a0,0x8000
+
+9fc00044 <next_tlb_entry>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:59
+9fc00044:	40830000 	mtc0	v1,c0_index
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:60
+9fc00048:	40845000 	mtc0	a0,c0_entryhi
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:61
+9fc0004c:	000000c0 	ehb
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:62
+9fc00050:	42000002 	tlbwi
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:63
+9fc00054:	20844000 	addi	a0,a0,16384
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:65
+9fc00058:	1460fffa 	bnez	v1,9fc00044 <next_tlb_entry>
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:66
+9fc0005c:	2063ffff 	addi	v1,v1,-1
+
+9fc00060 <init_icache>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:73
+9fc00060:	40028001 	mfc0	v0,c0_config1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:74
+9fc00064:	7c4314c0 	ext	v1,v0,0x13,0x3
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:75
+9fc00068:	10600010 	beqz	v1,9fc000ac <done_icache>
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:76
+9fc0006c:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:78
+9fc00070:	24060002 	li	a2,2
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:79
+9fc00074:	00661804 	sllv	v1,a2,v1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:81
+9fc00078:	7c441580 	ext	a0,v0,0x16,0x3
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:82
+9fc0007c:	24060040 	li	a2,64
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:83
+9fc00080:	00862004 	sllv	a0,a2,a0
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:85
+9fc00084:	7c451400 	ext	a1,v0,0x10,0x3
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:86
+9fc00088:	20a50001 	addi	a1,a1,1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:87
+9fc0008c:	70852002 	mul	a0,a0,a1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:88
+9fc00090:	3c068000 	lui	a2,0x8000
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:90
+9fc00094:	4080e000 	mtc0	zero,c0_taglo
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:91
+9fc00098:	00803825 	move	a3,a0
+
+9fc0009c <next_icache_tag>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:96
+9fc0009c:	bcc80000 	cache	0x8,0(a2)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:97
+9fc000a0:	20e7ffff 	addi	a3,a3,-1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:98
+9fc000a4:	14e0fffd 	bnez	a3,9fc0009c <next_icache_tag>
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:99
+9fc000a8:	00c33020 	add	a2,a2,v1
+
+9fc000ac <done_icache>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:111
+9fc000ac:	40028000 	mfc0	v0,c0_config
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:112
+9fc000b0:	24030003 	li	v1,3
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:113
+9fc000b4:	7c621004 	ins	v0,v1,0x0,0x3
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:114
+9fc000b8:	40828000 	mtc0	v0,c0_config
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:116
+9fc000bc:	3c069fc0 	lui	a2,0x9fc0
+9fc000c0:	24c600cc 	addiu	a2,a2,204
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:117
+9fc000c4:	00c00008 	jr	a2
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:118
+9fc000c8:	000000c0 	ehb
+
+9fc000cc <init_dcache>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:124
+9fc000cc:	40028001 	mfc0	v0,c0_config1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:125
+9fc000d0:	7c431280 	ext	v1,v0,0xa,0x3
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:126
+9fc000d4:	10600011 	beqz	v1,9fc0011c <done_dcache>
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:127
+9fc000d8:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:129
+9fc000dc:	24060002 	li	a2,2
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:130
+9fc000e0:	00661804 	sllv	v1,a2,v1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:132
+9fc000e4:	7c441340 	ext	a0,v0,0xd,0x3
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:133
+9fc000e8:	24060040 	li	a2,64
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:134
+9fc000ec:	00862004 	sllv	a0,a2,a0
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:136
+9fc000f0:	7c4511c0 	ext	a1,v0,0x7,0x3
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:137
+9fc000f4:	20a50001 	addi	a1,a1,1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:138
+9fc000f8:	70852002 	mul	a0,a0,a1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:139
+9fc000fc:	3c068000 	lui	a2,0x8000
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:141
+9fc00100:	4080e000 	mtc0	zero,c0_taglo
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:142
+9fc00104:	4080e002 	mtc0	zero,c0_taglo1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:143
+9fc00108:	00803825 	move	a3,a0
+
+9fc0010c <next_dcache_tag>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:148
+9fc0010c:	bcc90000 	cache	0x9,0(a2)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:149
+9fc00110:	20e7ffff 	addi	a3,a3,-1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:150
+9fc00114:	14e0fffd 	bnez	a3,9fc0010c <next_dcache_tag>
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:151
+9fc00118:	00c33020 	add	a2,a2,v1
+
+9fc0011c <done_dcache>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:156
+9fc0011c:	3c1f9fc0 	lui	ra,0x9fc0
+9fc00120:	27ff013c 	addiu	ra,ra,316
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:157
+9fc00124:	00002025 	move	a0,zero
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:159
+9fc00128:	3c029fc0 	lui	v0,0x9fc0
+9fc0012c:	24420144 	addiu	v0,v0,324
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:160
+9fc00130:	4082f000 	mtc0	v0,c0_errorepc
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:161
+9fc00134:	000000c0 	ehb
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:165
+9fc00138:	42000018 	eret
+
+9fc0013c <all_done>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:171
+9fc0013c:	1000ffff 	b	9fc0013c <all_done>
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/boot.S:172
+9fc00140:	00000000 	nop
+
+9fc00144 <_start>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:16
+9fc00144:	03e08025 	move	s0,ra
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:18
+9fc00148:	3c1c8001 	lui	gp,0x8001
+9fc0014c:	279c8340 	addiu	gp,gp,-31936
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:20
+9fc00150:	3c1d8004 	lui	sp,0x8004
+9fc00154:	27bd0000 	addiu	sp,sp,0
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:22
+9fc00158:	3c028000 	lui	v0,0x8000
+9fc0015c:	24420340 	addiu	v0,v0,832
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:23
+9fc00160:	3c038000 	lui	v1,0x8000
+9fc00164:	24630340 	addiu	v1,v1,832
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:24
+9fc00168:	10430004 	beq	v0,v1,9fc0017c <_start+0x38>
+9fc0016c:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:26
+9fc00170:	24420004 	addiu	v0,v0,4
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:28
+9fc00174:	1443fffe 	bne	v0,v1,9fc00170 <_start+0x2c>
+9fc00178:	ac40fffc 	sw	zero,-4(v0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:31
+9fc0017c:	24040000 	li	a0,0
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:33
+9fc00180:	27bdfff0 	addiu	sp,sp,-16
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:37
+9fc00184:	40026000 	mfc0	v0,c0_status
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:38
+9fc00188:	7c02b584 	ins	v0,zero,0x16,0x1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:39
+9fc0018c:	40826000 	mtc0	v0,c0_status
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:40
+9fc00190:	000000c0 	ehb
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:43
+9fc00194:	3c088000 	lui	t0,0x8000
+9fc00198:	250802d4 	addiu	t0,t0,724
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:44
+9fc0019c:	0100f809 	jalr	t0
+9fc001a0:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:47
+9fc001a4:	0200f825 	move	ra,s0
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/crt0.S:48
+9fc001a8:	03e00008 	jr	ra
+9fc001ac:	00000000 	nop
+
+Disassembly of section .exception_vector:
+
+80000000 <__exception_entry>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:45
+80000000:	3c1b0000 	lui	k1,0x0
+80000004:	277b0000 	addiu	k1,k1,0
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:46
+80000008:	1360fffd 	beqz	k1,80000000 <__exception_entry>
+8000000c:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:47
+80000010:	03600008 	jr	k1
+80000014:	00000000 	nop
+	...
+
+80000080 <__xtlb_refill_loop>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:52
+80000080:	3c1b0000 	lui	k1,0x0
+80000084:	277b0000 	addiu	k1,k1,0
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:53
+80000088:	1360fffd 	beqz	k1,80000080 <__xtlb_refill_loop>
+8000008c:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:54
+80000090:	03600008 	jr	k1
+80000094:	00000000 	nop
+	...
+
+80000100 <__cache_error_loop>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:59
+80000100:	3c1b0000 	lui	k1,0x0
+80000104:	277b0000 	addiu	k1,k1,0
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:60
+80000108:	1360fffd 	beqz	k1,80000100 <__cache_error_loop>
+8000010c:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:61
+80000110:	03600008 	jr	k1
+80000114:	00000000 	nop
+	...
+
+80000180 <__general_exception_loop>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:66
+80000180:	3c1b0000 	lui	k1,0x0
+80000184:	277b0000 	addiu	k1,k1,0
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:67
+80000188:	1360fffd 	beqz	k1,80000180 <__general_exception_loop>
+8000018c:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/exceptions.S:68
+80000190:	03600008 	jr	k1
+80000194:	00000000 	nop
+	...
+
+Disassembly of section .text:
+
+80000200 <__exception_handle>:
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/dummy.S:59
+80000200:	00000000 	nop
+
+80000204 <long_delay>:
+long_delay():
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:25
+80000204:	27bdfff8 	addiu	sp,sp,-8
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:30
+80000208:	afa00000 	sw	zero,0(sp)
+8000020c:	8fa20000 	lw	v0,0(sp)
+80000210:	2c420002 	sltiu	v0,v0,2
+80000214:	10400008 	beqz	v0,80000238 <long_delay+0x34>
+80000218:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:30 (discriminator 3)
+8000021c:	8fa20000 	lw	v0,0(sp)
+80000220:	24420001 	addiu	v0,v0,1
+80000224:	afa20000 	sw	v0,0(sp)
+80000228:	8fa20000 	lw	v0,0(sp)
+8000022c:	2c420002 	sltiu	v0,v0,2
+80000230:	1440fffa 	bnez	v0,8000021c <long_delay+0x18>
+80000234:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:31
+80000238:	03e00008 	jr	ra
+8000023c:	27bd0008 	addiu	sp,sp,8
+
+80000240 <delay_slot>:
+delay_slot():
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:34
+80000240:	34001234 	li	zero,0x1234
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:35
+80000244:	03e00008 	jr	ra
+80000248:	34001234 	li	zero,0x1234
+
+8000024c <draw_line>:
+draw_line():
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:38
+8000024c:	27bdffe0 	addiu	sp,sp,-32
+80000250:	afbf001c 	sw	ra,28(sp)
+80000254:	afb10018 	sw	s1,24(sp)
+80000258:	afb00014 	sw	s0,20(sp)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:39
+8000025c:	3c10bf80 	lui	s0,0xbf80
+80000260:	ae000020 	sw	zero,32(s0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:40
+80000264:	ae000024 	sw	zero,36(s0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:41
+80000268:	ae040010 	sw	a0,16(s0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:42
+8000026c:	ae050018 	sw	a1,24(s0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:43
+80000270:	ae060014 	sw	a2,20(s0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:44
+80000274:	ae07001c 	sw	a3,28(s0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:45
+80000278:	0c000090 	jal	80000240 <delay_slot>
+8000027c:	24110001 	li	s1,1
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:46
+80000280:	ae110024 	sw	s1,36(s0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:47
+80000284:	0c000090 	jal	80000240 <delay_slot>
+80000288:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:48
+8000028c:	ae000024 	sw	zero,36(s0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:49
+80000290:	0c000090 	jal	80000240 <delay_slot>
+80000294:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:50
+80000298:	ae110020 	sw	s1,32(s0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:51
+8000029c:	0c000090 	jal	80000240 <delay_slot>
+800002a0:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:52
+800002a4:	ae000020 	sw	zero,32(s0)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:55
+800002a8:	3c03bf80 	lui	v1,0xbf80
+800002ac:	8c620028 	lw	v0,40(v1)
+800002b0:	1040fffe 	beqz	v0,800002ac <draw_line+0x60>
+800002b4:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:59
+800002b8:	0c000090 	jal	80000240 <delay_slot>
+800002bc:	00000000 	nop
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:60
+800002c0:	8fbf001c 	lw	ra,28(sp)
+800002c4:	8fb10018 	lw	s1,24(sp)
+800002c8:	8fb00014 	lw	s0,20(sp)
+800002cc:	03e00008 	jr	ra
+800002d0:	27bd0020 	addiu	sp,sp,32
+
+800002d4 <main>:
+main():
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:16
+800002d4:	27bdffe8 	addiu	sp,sp,-24
+800002d8:	afbf0014 	sw	ra,20(sp)
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:18
+800002dc:	2404000a 	li	a0,10
+800002e0:	2405000b 	li	a1,11
+800002e4:	2406000f 	li	a2,15
+800002e8:	0c000093 	jal	8000024c <draw_line>
+800002ec:	2407000b 	li	a3,11
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:19
+800002f0:	24040009 	li	a0,9
+800002f4:	24050008 	li	a1,8
+800002f8:	24060010 	li	a2,16
+800002fc:	0c000093 	jal	8000024c <draw_line>
+80000300:	24070008 	li	a3,8
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:20
+80000304:	24040007 	li	a0,7
+80000308:	24050006 	li	a1,6
+8000030c:	2406000c 	li	a2,12
+80000310:	0c000093 	jal	8000024c <draw_line>
+80000314:	24070006 	li	a3,6
+F:\Line drawing verilog_updated\MIPSfpga2_line_drawing\software/main.c:23
+80000318:	00001025 	move	v0,zero
+8000031c:	8fbf0014 	lw	ra,20(sp)
+80000320:	03e00008 	jr	ra
+80000324:	27bd0018 	addiu	sp,sp,24
+
+Disassembly of section .debug_aranges:
+
+00000000 <.debug_aranges>:
+   0:	0000001c 	0x1c
+   4:	00000002 	srl	zero,zero,0x0
+   8:	00040000 	sll	zero,a0,0x0
+   c:	00000000 	nop
+  10:	9fc00144 	0x9fc00144
+  14:	0000006c 	0x6c
+	...
+  20:	0000001c 	0x1c
+  24:	00700002 	0x700002
+  28:	00040000 	sll	zero,a0,0x0
+  2c:	00000000 	nop
+  30:	9fc00000 	0x9fc00000
+  34:	00000144 	0x144
+	...
+  40:	0000001c 	0x1c
+  44:	00e00002 	0xe00002
+  48:	00040000 	sll	zero,a0,0x0
+  4c:	00000000 	nop
+  50:	80000000 	lb	zero,0(zero)
+  54:	00000198 	0x198
+	...
+  60:	0000001c 	0x1c
+  64:	01560002 	0x1560002
+  68:	00040000 	sll	zero,a0,0x0
+  6c:	00000000 	nop
+  70:	80000200 	lb	zero,512(zero)
+  74:	00000004 	sllv	zero,zero,zero
+	...
+  80:	0000001c 	0x1c
+  84:	01c70002 	0x1c70002
+  88:	00040000 	sll	zero,a0,0x0
+  8c:	00000000 	nop
+  90:	80000204 	lb	zero,516(zero)
+  94:	00000124 	0x124
+	...
+
+Disassembly of section .debug_info:
+
+00000000 <.debug_info>:
+   0:	0000006c 	0x6c
+   4:	00000002 	srl	zero,zero,0x0
+   8:	01040000 	0x1040000
+   c:	00000000 	nop
+  10:	9fc00144 	0x9fc00144
+  14:	9fc001b0 	0x9fc001b0
+  18:	30747263 	andi	s4,v1,0x7263
+  1c:	4600532e 	c1	0x532e
+  20:	694c5c3a 	0x694c5c3a
+  24:	6420656e 	0x6420656e
+  28:	69776172 	0x69776172
+  2c:	7620676e 	jalx	8819db8 <__memory_size+0x87fa5b8>
+  30:	6c697265 	0x6c697265
+  34:	755f676f 	jalx	57d9dbc <__memory_size+0x57ba5bc>
+  38:	74616470 	jalx	18591c0 <__memory_size+0x18399c0>
+  3c:	4d5c6465 	0x4d5c6465
+  40:	66535049 	0x66535049
+  44:	32616770 	andi	at,s3,0x6770
+  48:	6e696c5f 	0x6e696c5f
+  4c:	72645f65 	s8sdi	xr13,s3,23,ptn1
+  50:	6e697761 	0x6e697761
+  54:	6f735c67 	0x6f735c67
+  58:	61777466 	0x61777466
+  5c:	47006572 	bz.b	$w0,19628 <__isr_vec_space+0x19608>
+  60:	4120554e 	0x4120554e
+  64:	2e322053 	sltiu	s2,s1,8275
+  68:	392e3432 	xori	t6,t1,0x3432
+  6c:	80010030 	lb	at,48(zero)
+  70:	0000006c 	0x6c
+  74:	00140002 	srl	zero,s4,0x0
+  78:	01040000 	0x1040000
+  7c:	00000048 	0x48
+  80:	9fc00000 	0x9fc00000
+  84:	9fc00144 	0x9fc00144
+  88:	746f6f62 	jalx	1bdbd88 <__memory_size+0x1bbc588>
+  8c:	4600532e 	c1	0x532e
+  90:	694c5c3a 	0x694c5c3a
+  94:	6420656e 	0x6420656e
+  98:	69776172 	0x69776172
+  9c:	7620676e 	jalx	8819db8 <__memory_size+0x87fa5b8>
+  a0:	6c697265 	0x6c697265
+  a4:	755f676f 	jalx	57d9dbc <__memory_size+0x57ba5bc>
+  a8:	74616470 	jalx	18591c0 <__memory_size+0x18399c0>
+  ac:	4d5c6465 	0x4d5c6465
+  b0:	66535049 	0x66535049
+  b4:	32616770 	andi	at,s3,0x6770
+  b8:	6e696c5f 	0x6e696c5f
+  bc:	72645f65 	s8sdi	xr13,s3,23,ptn1
+  c0:	6e697761 	0x6e697761
+  c4:	6f735c67 	0x6f735c67
+  c8:	61777466 	0x61777466
+  cc:	47006572 	bz.b	$w0,19698 <__isr_vec_space+0x19678>
+  d0:	4120554e 	0x4120554e
+  d4:	2e322053 	sltiu	s2,s1,8275
+  d8:	392e3432 	xori	t6,t1,0x3432
+  dc:	80010030 	lb	at,48(zero)
+  e0:	00000072 	tlt	zero,zero,0x1
+  e4:	00280002 	ror	zero,t0,0x0
+  e8:	01040000 	0x1040000
+  ec:	000000ce 	0xce
+  f0:	80000000 	lb	zero,0(zero)
+  f4:	80000198 	lb	zero,408(zero)
+  f8:	65637865 	0x65637865
+  fc:	6f697470 	0x6f697470
+ 100:	532e736e 	beql	t9,t6,1cebc <__isr_vec_space+0x1ce9c>
+ 104:	5c3a4600 	0x5c3a4600
+ 108:	656e694c 	0x656e694c
+ 10c:	61726420 	0x61726420
+ 110:	676e6977 	0x676e6977
+ 114:	72657620 	0x72657620
+ 118:	676f6c69 	0x676f6c69
+ 11c:	6470755f 	0x6470755f
+ 120:	64657461 	0x64657461
+ 124:	50494d5c 	beql	v0,t1,13698 <__isr_vec_space+0x13678>
+ 128:	67706653 	0x67706653
+ 12c:	6c5f3261 	0x6c5f3261
+ 130:	5f656e69 	0x5f656e69
+ 134:	77617264 	jalx	d85c990 <__memory_size+0xd83d190>
+ 138:	5c676e69 	0x5c676e69
+ 13c:	74666f73 	jalx	199bdcc <__memory_size+0x197c5cc>
+ 140:	65726177 	0x65726177
+ 144:	554e4700 	bnel	t2,t6,11d48 <__isr_vec_space+0x11d28>
+ 148:	20534120 	addi	s3,v0,16672
+ 14c:	34322e32 	ori	s2,at,0x2e32
+ 150:	0030392e 	0x30392e
+ 154:	006d8001 	movt	s0,v1,$fcc3
+ 158:	00020000 	sll	zero,v0,0x0
+ 15c:	0000003c 	0x3c
+ 160:	011b0104 	0x11b0104
+ 164:	02000000 	0x2000000
+ 168:	02048000 	0x2048000
+ 16c:	75648000 	jalx	5920000 <__memory_size+0x5900800>
+ 170:	2e796d6d 	sltiu	t9,s3,28013
+ 174:	3a460053 	xori	a2,s2,0x53
+ 178:	6e694c5c 	0x6e694c5c
+ 17c:	72642065 	s8sdi	xr1,s3,8,ptn1
+ 180:	6e697761 	0x6e697761
+ 184:	65762067 	0x65762067
+ 188:	6f6c6972 	0x6f6c6972
+ 18c:	70755f67 	0x70755f67
+ 190:	65746164 	0x65746164
+ 194:	494d5c64 	0x494d5c64
+ 198:	70665350 	s32ldd	xr13,v1,1616
+ 19c:	5f326167 	0x5f326167
+ 1a0:	656e696c 	0x656e696c
+ 1a4:	6172645f 	0x6172645f
+ 1a8:	676e6977 	0x676e6977
+ 1ac:	666f735c 	0x666f735c
+ 1b0:	72617774 	q16sll	xr13,xr13,xr5,xr8,9
+ 1b4:	4e470065 	c3	0x470065
+ 1b8:	53412055 	beql	k0,at,8310 <__isr_vec_space+0x82f0>
+ 1bc:	322e3220 	andi	t6,s1,0x3220
+ 1c0:	30392e34 	andi	t9,at,0x2e34
+ 1c4:	5b800100 	blezl	gp,5c8 <__isr_vec_space+0x5a8>
+ 1c8:	04000001 	bltz	zero,1d0 <__isr_vec_space+0x1b0>
+ 1cc:	00005000 	sll	t2,zero,0x0
+ 1d0:	0d010400 	jal	4041000 <__memory_size+0x4021800>
+ 1d4:	01000000 	0x1000000
+ 1d8:	00000065 	0x65
+ 1dc:	0000006c 	0x6c
+ 1e0:	80000204 	lb	zero,516(zero)
+ 1e4:	00000124 	0x124
+ 1e8:	00000152 	0x152
+ 1ec:	0000c102 	srl	t8,zero,0x4
+ 1f0:	04190100 	0x4190100
+ 1f4:	3c800002 	0x3c800002
+ 1f8:	01000000 	0x1000000
+ 1fc:	0000479c 	0x479c
+ 200:	006a0300 	0x6a0300
+ 204:	00471a01 	0x471a01
+ 208:	91020000 	lbu	v0,0(t0)
+ 20c:	4c040078 	nmsub.s	$f1,$f0,$f0,$f4
+ 210:	05000000 	bltz	t0,214 <__isr_vec_space+0x1f4>
+ 214:	00000704 	0x704
+ 218:	b6060000 	0xb6060000
+ 21c:	01000000 	0x1000000
+ 220:	00024021 	addu	t0,zero,v0
+ 224:	00000c80 	sll	at,zero,0x12
+ 228:	079c0100 	0x79c0100
+ 22c:	000000ac 	0xac
+ 230:	024c2601 	0x24c2601
+ 234:	00888000 	0x888000
+ 238:	9c010000 	0x9c010000
+ 23c:	000000df 	0xdf
+ 240:	00307808 	0x307808
+ 244:	00df2601 	0xdf2601
+ 248:	00000000 	nop
+ 24c:	79080000 	ori.b	$w0,$w0,0x8
+ 250:	26010030 	addiu	at,s0,48
+ 254:	000000df 	0xdf
+ 258:	00000021 	move	zero,zero
+ 25c:	00317808 	0x317808
+ 260:	00df2601 	0xdf2601
+ 264:	00420000 	0x420000
+ 268:	79080000 	ori.b	$w0,$w0,0x8
+ 26c:	26010031 	addiu	at,s0,49
+ 270:	000000df 	0xdf
+ 274:	00000063 	0x63
+ 278:	00028009 	0x28009
+ 27c:	00005380 	sll	t2,zero,0xe
+ 280:	028c0900 	0x28c0900
+ 284:	00538000 	0x538000
+ 288:	98090000 	lwr	t1,0(zero)
+ 28c:	53800002 	beqzl	gp,298 <__isr_vec_space+0x278>
+ 290:	09000000 	j	4000000 <__memory_size+0x3fe0800>
+ 294:	800002a4 	lb	zero,676(zero)
+ 298:	00000053 	mtlhx	zero
+ 29c:	0002c009 	0x2c009
+ 2a0:	00005380 	sll	t2,zero,0xe
+ 2a4:	040a0000 	tlti	zero,0
+ 2a8:	746e6905 	jalx	1b9a414 <__memory_size+0x1b7ac14>
+ 2ac:	00600b00 	0x600b00
+ 2b0:	10010000 	beq	zero,at,2b4 <__isr_vec_space+0x294>
+ 2b4:	000000df 	0xdf
+ 2b8:	800002d4 	lb	zero,724(zero)
+ 2bc:	00000054 	0x54
+ 2c0:	f00c9c01 	0xf00c9c01
+ 2c4:	64800002 	0x64800002
+ 2c8:	1d000000 	bgtz	t0,2cc <__isr_vec_space+0x2ac>
+ 2cc:	0d000001 	jal	4000004 <__memory_size+0x3fe0804>
+ 2d0:	3b015701 	xori	at,t8,0x5701
+ 2d4:	0156010d 	break	0x156,0x4
+ 2d8:	55010d3f 	bnel	t0,at,37d8 <__isr_vec_space+0x37b8>
+ 2dc:	010d3b01 	0x10d3b01
+ 2e0:	003a0154 	0x3a0154
+ 2e4:	0003040c 	syscall	0xc10
+ 2e8:	00006480 	sll	t4,zero,0x12
+ 2ec:	00013f00 	sll	a3,at,0x1c
+ 2f0:	57010d00 	bnel	t8,at,36f4 <__isr_vec_space+0x36d4>
+ 2f4:	010d3801 	movt	a3,t0,$fcc3
+ 2f8:	0d400156 	jal	5000558 <__memory_size+0x4fe0d58>
+ 2fc:	38015501 	xori	at,zero,0x5501
+ 300:	0154010d 	break	0x154,0x4
+ 304:	180e0039 	0x180e0039
+ 308:	64800003 	0x64800003
+ 30c:	0d000000 	jal	4000000 <__memory_size+0x3fe0800>
+ 310:	36015701 	ori	at,s0,0x5701
+ 314:	0156010d 	break	0x156,0x4
+ 318:	55010d3c 	bnel	t0,at,380c <__isr_vec_space+0x37ec>
+ 31c:	010d3601 	0x10d3601
+ 320:	00370154 	0x370154
+	...
+
+Disassembly of section .debug_abbrev:
+
+00000000 <.debug_abbrev>:
+   0:	10001101 	b	4408 <__isr_vec_space+0x43e8>
+   4:	12011106 	beq	s0,at,4420 <__isr_vec_space+0x4400>
+   8:	1b080301 	0x1b080301
+   c:	13082508 	beq	t8,t0,9430 <__isr_vec_space+0x9410>
+  10:	00000005 	lsa	zero,zero,zero,0x1
+  14:	10001101 	b	441c <__isr_vec_space+0x43fc>
+  18:	12011106 	beq	s0,at,4434 <__isr_vec_space+0x4414>
+  1c:	1b080301 	0x1b080301
+  20:	13082508 	beq	t8,t0,9444 <__isr_vec_space+0x9424>
+  24:	00000005 	lsa	zero,zero,zero,0x1
+  28:	10001101 	b	4430 <__isr_vec_space+0x4410>
+  2c:	12011106 	beq	s0,at,4448 <__isr_vec_space+0x4428>
+  30:	1b080301 	0x1b080301
+  34:	13082508 	beq	t8,t0,9458 <__isr_vec_space+0x9438>
+  38:	00000005 	lsa	zero,zero,zero,0x1
+  3c:	10001101 	b	4444 <__isr_vec_space+0x4424>
+  40:	12011106 	beq	s0,at,445c <__isr_vec_space+0x443c>
+  44:	1b080301 	0x1b080301
+  48:	13082508 	beq	t8,t0,946c <__isr_vec_space+0x944c>
+  4c:	00000005 	lsa	zero,zero,zero,0x1
+  50:	25011101 	addiu	at,t0,4353
+  54:	030b130e 	0x30b130e
+  58:	110e1b0e 	beq	t0,t6,6c94 <__isr_vec_space+0x6c74>
+  5c:	10061201 	beq	zero,a2,4864 <__isr_vec_space+0x4844>
+  60:	02000017 	0x2000017
+  64:	193f012e 	0x193f012e
+  68:	0b3a0e03 	j	ce8380c <__memory_size+0xce6400c>
+  6c:	01110b3b 	0x1110b3b
+  70:	18400612 	blez	v0,18bc <__isr_vec_space+0x189c>
+  74:	01194297 	0x1194297
+  78:	03000013 	mtlo	t8
+  7c:	08030034 	j	c00d0 <__memory_size+0xa08d0>
+  80:	0b3b0b3a 	j	cec2ce8 <__memory_size+0xcea34e8>
+  84:	18021349 	0x18021349
+  88:	35040000 	ori	a0,t0,0x0
+  8c:	00134900 	sll	t1,s3,0x4
+  90:	00240500 	0x240500
+  94:	0b3e0b0b 	j	cf82c2c <__memory_size+0xcf6342c>
+  98:	00000e03 	sra	at,zero,0x18
+  9c:	3f002e06 	0x3f002e06
+  a0:	3a0e0319 	xori	t6,s0,0x319
+  a4:	110b3b0b 	beq	t0,t3,ecd4 <__isr_vec_space+0xecb4>
+  a8:	40061201 	0x40061201
+  ac:	19429718 	0x19429718
+  b0:	2e070000 	sltiu	a3,s0,0
+  b4:	03193f01 	0x3193f01
+  b8:	3b0b3a0e 	xori	t3,t8,0x3a0e
+  bc:	1119270b 	beq	t0,t9,9cec <__isr_vec_space+0x9ccc>
+  c0:	40061201 	0x40061201
+  c4:	19429718 	0x19429718
+  c8:	00001301 	0x1301
+  cc:	03000508 	0x3000508
+  d0:	3b0b3a08 	xori	t3,t8,0x3a08
+  d4:	0213490b 	0x213490b
+  d8:	09000017 	j	400005c <__memory_size+0x3fe085c>
+  dc:	00018289 	0x18289
+  e0:	13310111 	beq	t9,s1,528 <__isr_vec_space+0x508>
+  e4:	240a0000 	li	t2,0
+  e8:	3e0b0b00 	0x3e0b0b00
+  ec:	0008030b 	0x8030b
+  f0:	012e0b00 	0x12e0b00
+  f4:	0e03193f 	jal	80c64fc <__memory_size+0x80a6cfc>
+  f8:	0b3b0b3a 	j	cec2ce8 <__memory_size+0xcea34e8>
+  fc:	01111349 	0x1111349
+ 100:	18400612 	blez	v0,194c <__isr_vec_space+0x192c>
+ 104:	00194297 	0x194297
+ 108:	82890c00 	lb	t1,3072(s4)
+ 10c:	01110101 	0x1110101
+ 110:	13011331 	beq	t8,at,4dd8 <__isr_vec_space+0x4db8>
+ 114:	8a0d0000 	lwl	t5,0(s0)
+ 118:	02000182 	0x2000182
+ 11c:	18429118 	0x18429118
+ 120:	890e0000 	lwl	t6,0(t0)
+ 124:	11010182 	beq	t0,at,730 <__isr_vec_space+0x710>
+ 128:	00133101 	0x133101
+	...
+
+Disassembly of section .debug_line:
+
+00000000 <.debug_line>:
+   0:	00000044 	0x44
+   4:	001d0002 	srl	zero,sp,0x0
+   8:	01010000 	0x1010000
+   c:	000d0efb 	0xd0efb
+  10:	01010101 	0x1010101
+  14:	01000000 	0x1000000
+  18:	00010000 	sll	zero,at,0x0
+  1c:	30747263 	andi	s4,v1,0x7263
+  20:	0000532e 	0x532e
+  24:	00000000 	nop
+  28:	01440205 	0x1440205
+  2c:	0f039fc0 	jal	c0e7f00 <__memory_size+0xc0c8700>
+  30:	84844c01 	lh	a0,19457(a0)
+  34:	4b848383 	c2	0x1848383
+  38:	4e4c8513 	c3	0x4c8513
+  3c:	4d4b4b4b 	0x4d4b4b4b
+  40:	024b8583 	0x24b8583
+  44:	01010008 	0x1010008
+  48:	00000082 	srl	zero,zero,0x2
+  4c:	001d0002 	srl	zero,sp,0x0
+  50:	01010000 	0x1010000
+  54:	000d0efb 	0xd0efb
+  58:	01010101 	0x1010101
+  5c:	01000000 	0x1000000
+  60:	00010000 	sll	zero,at,0x0
+  64:	746f6f62 	jalx	1bdbd88 <__memory_size+0x1bbc588>
+  68:	0000532e 	0x532e
+  6c:	00000000 	nop
+  70:	00000205 	0x205
+  74:	13039fc0 	beq	t8,v1,fffe7f78 <__entry+0x403e7f78>
+  78:	4d835101 	0x4d835101
+  7c:	4a0a034d 	c2	0xa034d
+  80:	4d4b4b4b 	0x4d4b4b4b
+  84:	4b4b4b4b 	c2	0x14b4b4b
+  88:	4b4d4b4b 	c2	0x14d4b4b
+  8c:	4c4b4b4b 	0x4c4b4b4b
+  90:	4b4b514b 	c2	0x14b514b
+  94:	4c4b4c4b 	0x4c4b4c4b
+  98:	4b4c4b4b 	c2	0x14c4b4b
+  9c:	4b4c4b4b 	c2	0x14c4b4b
+  a0:	4b4b4b4f 	c2	0x14b4b4f
+  a4:	4b4a0c03 	c2	0x14a0c03
+  a8:	834c4b4b 	lb	t4,19275(k0)
+  ac:	4b4b504b 	c2	0x14b504b
+  b0:	4c4b4c4b 	0x4c4b4c4b
+  b4:	4b4c4b4b 	c2	0x14c4b4b
+  b8:	4b4c4b4b 	c2	0x14c4b4b
+  bc:	4b4b4f4b 	c2	0x14b4f4b
+  c0:	4c834f4b 	0x4c834f4b
+  c4:	504e4b83 	beql	v0,t6,12ed4 <__isr_vec_space+0x12eb4>
+  c8:	0004024b 	0x4024b
+  cc:	00490101 	0x490101
+  d0:	00020000 	sll	zero,v0,0x0
+  d4:	00000023 	negu	zero,zero
+  d8:	0efb0101 	jal	bec0404 <__memory_size+0xbea0c04>
+  dc:	0101000d 	break	0x101
+  e0:	00000101 	0x101
+  e4:	00000100 	sll	zero,zero,0x4
+  e8:	78650001 	bmnzi.b	$w0,$w0,0x65
+  ec:	74706563 	jalx	1c1958c <__memory_size+0x1bf9d8c>
+  f0:	736e6f69 	0x736e6f69
+  f4:	0000532e 	0x532e
+  f8:	00000000 	nop
+  fc:	00000205 	0x205
+ 100:	2c038000 	sltiu	v1,zero,-32768
+ 104:	02838301 	0x2838301
+ 108:	83831770 	lb	v1,6000(gp)
+ 10c:	83177002 	lb	s7,28674(t8)
+ 110:	17700283 	bne	k1,s0,b20 <__isr_vec_space+0xb00>
+ 114:	08028383 	j	a0e0c <__memory_size+0x8160c>
+ 118:	33010100 	andi	at,t8,0x100
+ 11c:	02000000 	0x2000000
+ 120:	00001e00 	sll	v1,zero,0x18
+ 124:	fb010100 	sdc2	$1,256(t8)
+ 128:	01000d0e 	0x1000d0e
+ 12c:	00010101 	0x10101
+ 130:	00010000 	sll	zero,at,0x0
+ 134:	64000100 	0x64000100
+ 138:	796d6d75 	0x796d6d75
+ 13c:	0000532e 	0x532e
+ 140:	00000000 	nop
+ 144:	02000205 	0x2000205
+ 148:	3a038000 	xori	v1,s0,0x8000
+ 14c:	00040201 	0x40201
+ 150:	005d0101 	0x5d0101
+ 154:	00020000 	sll	zero,v0,0x0
+ 158:	0000001d 	0x1d
+ 15c:	0efb0101 	jal	bec0404 <__memory_size+0xbea0c04>
+ 160:	0101000d 	break	0x101
+ 164:	00000101 	0x101
+ 168:	00000100 	sll	zero,zero,0x4
+ 16c:	616d0001 	0x616d0001
+ 170:	632e6e69 	0x632e6e69
+ 174:	00000000 	nop
+ 178:	02050000 	0x2050000
+ 17c:	80000204 	lb	zero,516(zero)
+ 180:	4f011803 	c3	0x1011803
+ 184:	03040200 	0x3040200
+ 188:	063c0806 	0x63c0806
+ 18c:	1384ad08 	beq	gp,a0,fffeb5b0 <__entry+0x403eb5b0>
+ 190:	83f3854b 	lb	s3,-31413(ra)
+ 194:	4b4b4b4b 	c2	0x14b4b4b
+ 198:	834b834b 	lb	t3,-31925(k0)
+ 19c:	834b834b 	lb	t3,-31925(k0)
+ 1a0:	0383f64d 	break	0x383,0x3d9
+ 1a4:	843c0854 	lh	gp,2132(at)
+ 1a8:	3d083d08 	0x3d083d08
+ 1ac:	10023f08 	beq	zero,v0,fdd0 <__isr_vec_space+0xfdb0>
+ 1b0:	Address 0x00000000000001b0 is out of bounds.
+
+
+Disassembly of section .debug_frame:
+
+00000000 <.debug_frame>:
+   0:	0000000c 	syscall
+   4:	ffffffff 	sdc3	$31,-1(ra)
+   8:	7c010001 	0x7c010001
+   c:	001d0d1f 	0x1d0d1f
+  10:	00000014 	0x14
+  14:	00000000 	nop
+  18:	80000204 	lb	zero,516(zero)
+  1c:	0000003c 	0x3c
+  20:	78080e44 	0x78080e44
+  24:	0000000e 	0xe
+  28:	0000000c 	syscall
+  2c:	00000000 	nop
+  30:	80000240 	lb	zero,576(zero)
+  34:	0000000c 	syscall
+  38:	00000020 	add	zero,zero,zero
+  3c:	00000000 	nop
+  40:	8000024c 	lb	zero,588(zero)
+  44:	00000088 	0x88
+  48:	4c200e44 	0x4c200e44
+  4c:	0291019f 	0x291019f
+  50:	78020390 	add_a.b	$w14,$w0,$w2
+  54:	d1d0000e 	0xd1d0000e
+  58:	000000df 	0xdf
+  5c:	00000018 	mult	zero,zero
+  60:	00000000 	nop
+  64:	800002d4 	lb	zero,724(zero)
+  68:	00000054 	0x54
+  6c:	44180e44 	0x44180e44
+  70:	4c02019f 	0x4c02019f
+  74:	00df000e 	0xdf000e
+
+Disassembly of section .debug_str:
+
+00000000 <.debug_str>:
+   0:	69736e75 	0x69736e75
+   4:	64656e67 	0x64656e67
+   8:	746e6920 	jalx	1b9a480 <__memory_size+0x1b7ac80>
+   c:	554e4700 	bnel	t2,t6,11c10 <__isr_vec_space+0x11bf0>
+  10:	34204320 	ori	zero,at,0x4320
+  14:	322e392e 	andi	t6,s1,0x392e
+  18:	656d2d20 	0x656d2d20
+  1c:	6d2d206c 	0x6d2d206c
+  20:	68637261 	0x68637261
+  24:	34316d3d 	ori	s1,at,0x6d3d
+  28:	2d20636b 	sltiu	zero,t1,25451
+  2c:	666f736d 	0x666f736d
+  30:	6c662d74 	0x6c662d74
+  34:	2074616f 	addi	s4,v1,24943
+  38:	6c706d2d 	0x6c706d2d
+  3c:	6d2d2074 	0x6d2d2074
+  40:	33737069 	andi	s3,k1,0x7069
+  44:	20327232 	addi	s2,at,29234
+  48:	79736d2d 	0x79736d2d
+  4c:	2069636e 	addi	t1,v1,25454
+  50:	62616d2d 	0x62616d2d
+  54:	32333d69 	andi	s3,s1,0x3d69
+  58:	20672d20 	addi	a3,v1,11552
+  5c:	00314f2d 	0x314f2d
+  60:	6e69616d 	0x6e69616d
+  64:	69616d00 	0x69616d00
+  68:	00632e6e 	0x632e6e
+  6c:	4c5c3a46 	0x4c5c3a46
+  70:	20656e69 	addi	a1,v1,28265
+  74:	77617264 	jalx	d85c990 <__memory_size+0xd83d190>
+  78:	20676e69 	addi	a3,v1,28265
+  7c:	69726576 	0x69726576
+  80:	5f676f6c 	0x5f676f6c
+  84:	61647075 	0x61647075
+  88:	5c646574 	0x5c646574
+  8c:	5350494d 	beql	k0,s0,125c4 <__isr_vec_space+0x125a4>
+  90:	61677066 	0x61677066
+  94:	696c5f32 	0x696c5f32
+  98:	645f656e 	0x645f656e
+  9c:	69776172 	0x69776172
+  a0:	735c676e 	0x735c676e
+  a4:	7774666f 	jalx	dd199bc <__memory_size+0xdcfa1bc>
+  a8:	00657261 	0x657261
+  ac:	77617264 	jalx	d85c990 <__memory_size+0xd83d190>
+  b0:	6e696c5f 	0x6e696c5f
+  b4:	65640065 	0x65640065
+  b8:	5f79616c 	0x5f79616c
+  bc:	746f6c73 	jalx	1bdb1cc <__memory_size+0x1bbb9cc>
+  c0:	6e6f6c00 	0x6e6f6c00
+  c4:	65645f67 	0x65645f67
+  c8:	0079616c 	0x79616c
+
+Disassembly of section .debug_loc:
+
+00000000 <.debug_loc>:
+   0:	00000048 	0x48
+   4:	0000007b 	0x7b
+   8:	7b540001 	0x7b540001
+   c:	d0000000 	0xd0000000
+  10:	04000000 	bltz	zero,14 <__use_excpt_boot+0x13>
+  14:	5401f300 	bnel	zero,at,ffffcc18 <__entry+0x403fcc18>
+  18:	0000009f 	0x9f
+  1c:	00000000 	nop
+  20:	00004800 	sll	t1,zero,0x0
+  24:	00007b00 	sll	t7,zero,0xc
+  28:	55000100 	bnezl	t0,42c <__isr_vec_space+0x40c>
+  2c:	0000007b 	0x7b
+  30:	000000d0 	0xd0
+  34:	01f30004 	sllv	zero,s3,t7
+  38:	00009f55 	0x9f55
+  3c:	00000000 	nop
+  40:	00480000 	0x480000
+  44:	007b0000 	0x7b0000
+  48:	00010000 	sll	zero,at,0x0
+  4c:	00007b56 	0x7b56
+  50:	0000d000 	sll	k0,zero,0x0
+  54:	f3000400 	0xf3000400
+  58:	009f5601 	0x9f5601
+  5c:	00000000 	nop
+  60:	48000000 	mfc2	zero,$0
+  64:	7b000000 	xori.b	$w0,$w0,0x0
+  68:	01000000 	0x1000000
+  6c:	007b5700 	0x7b5700
+  70:	00d00000 	0xd00000
+  74:	00040000 	sll	zero,a0,0x0
+  78:	9f5701f3 	0x9f5701f3
+	...
+
+Disassembly of section .pdr:
+
+00000000 <.pdr>:
+   0:	9fc00144 	0x9fc00144
+	...
+  20:	9fc00000 	0x9fc00000
+	...
+  40:	80000000 	lb	zero,0(zero)
+	...
+  60:	80000200 	lb	zero,512(zero)
+	...
+  80:	80000200 	lb	zero,512(zero)
+	...
+  a0:	80000200 	lb	zero,512(zero)
+	...
+  c0:	80000200 	lb	zero,512(zero)
+	...
+  e0:	80000200 	lb	zero,512(zero)
+	...
+ 100:	80000204 	lb	zero,516(zero)
+	...
+ 114:	00000008 	jr	zero
+ 118:	0000001d 	0x1d
+ 11c:	0000001f 	0x1f
+ 120:	80000240 	lb	zero,576(zero)
+	...
+ 138:	0000001d 	0x1d
+ 13c:	0000001f 	0x1f
+ 140:	8000024c 	lb	zero,588(zero)
+ 144:	80030000 	lb	v1,0(zero)
+ 148:	fffffffc 	sdc3	$31,-4(ra)
+	...
+ 154:	00000020 	add	zero,zero,zero
+ 158:	0000001d 	0x1d
+ 15c:	0000001f 	0x1f
+ 160:	800002d4 	lb	zero,724(zero)
+ 164:	80000000 	lb	zero,0(zero)
+ 168:	fffffffc 	sdc3	$31,-4(ra)
+	...
+ 174:	00000018 	mult	zero,zero
+ 178:	0000001d 	0x1d
+ 17c:	0000001f 	0x1f
+
+Disassembly of section .gnu.attributes:
+
+00000000 <.gnu.attributes>:
+   0:	00000f41 	0xf41
+   4:	756e6700 	jalx	5b99c00 <__memory_size+0x5b7a400>
+   8:	00070100 	sll	zero,a3,0x4
+   c:	03040000 	0x3040000
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	3a434347 	xori	v1,s2,0x4347
+   4:	6f432820 	0x6f432820
+   8:	63736564 	0x63736564
+   c:	20657061 	addi	a1,v1,28769
+  10:	20554e47 	addi	s5,v0,20039
+  14:	6c6f6f54 	0x6c6f6f54
+  18:	30322073 	andi	s2,at,0x2073
+  1c:	302e3631 	andi	t6,at,0x3631
+  20:	33302d35 	andi	s0,t9,0x2d35
+  24:	726f6620 	0x726f6620
+  28:	50494d20 	beql	v0,t1,134ac <__isr_vec_space+0x1348c>
+  2c:	544d2053 	bnel	v0,t5,817c <__isr_vec_space+0x815c>
+  30:	61422049 	0x61422049
+  34:	4d206572 	0x4d206572
+  38:	6c617465 	0x6c617465
+  3c:	2e342029 	sltiu	s4,s1,8233
+  40:	00322e39 	0x322e39

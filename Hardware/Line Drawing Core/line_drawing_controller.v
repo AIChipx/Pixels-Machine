@@ -102,7 +102,7 @@ output reg	FB_WE,start_fragment,rst_fragment,en_Precomputed,rst_Precomputed,en_F
 				 finish: begin
 								sys_finish = 1'b1;
 								
-								nstate = init;
+								nstate = finish;
 							end
 		endcase
 	

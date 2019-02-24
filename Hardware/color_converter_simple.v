@@ -1,6 +1,6 @@
 // control the final color output using FPGA switches
 
-module color_converter (
+module color_converter_simple (
   input sw0, sw1, sw2,
   input in_color,
   output reg [7:0] red_out, green_out, blue_out

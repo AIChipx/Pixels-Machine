@@ -16,7 +16,13 @@ module simple_dual_port_framebuffer
 );
 	
 	// Declare the RAM variable
-	reg [DATA_WIDTH-1:0] ram[2**ADDR_WIDTH-1:0];
+	reg [DATA_WIDTH-1:0] ram[307199:0];
+	
+	    // memory initial content
+    initial
+	begin
+		$readmemb("FB_initial_data.txt", ram);
+	end
 	
 	always @ (posedge write_clock)
 	begin
